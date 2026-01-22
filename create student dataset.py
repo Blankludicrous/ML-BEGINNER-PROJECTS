@@ -15,7 +15,13 @@ with open("students_marks.csv","w+",newline="") as s:
     writer.writerows(data)
 with open("students_marks.csv","r",newline="") as s:
     data=csv.reader(s)
+    next(data)
     for row in data:
-        print(f"hours studied {row[0]}",
-              f"attendance {row[1]}",
-              f"marks {row[2]}")
+        hours_studied=int(row[0])
+        attendance=int(row[1])
+        marks=int(row[2])
+        print(
+        f"hours_studied{hours_studied}",
+        f"attendance{attendance}",
+        f"marks {marks}"
+        )
