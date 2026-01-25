@@ -1,9 +1,9 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
-data=pd.read_csv("student_marks.csv")
+data=pd.read_csv("students_marks.csv")
 X=data[["hours_studied","attendance"]]
 y=data["marks"]
-model=LinearRegression
+model=LinearRegression()
 model.fit(X,y)
 new_student=pd.DataFrame({
     "hours_studied":[7],
