@@ -18,9 +18,9 @@ y=df["sold"]
 X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
 #define pipeline
 pipeline=Pipeline([
-    ("imputation",SimpleImputer),
-    ("scaling",StandardScaler),
-    ("rf",RandomForestClassifier)
+    ("imputation",SimpleImputer(strategy="mean")),
+    ("scaling",StandardScaler()),
+    ("rf",RandomForestClassifier())
 ])
 #define grid_params
 params_grid={
@@ -31,8 +31,8 @@ params_grid={
 }
 #define grid
 grid=GridSearchCV(
-    pipeline,
-    params_grid,
+    estimator=pipeline,
+    param_grid=params_grid,
     cv=5,
     scoring="accuracy"
 )
@@ -41,7 +41,7 @@ print("best parameter",grid.best_params_)
 print("best score",grid.best_score_)
 pred=grid.predict(X_test)
 print("classification_report",classification_report(y_test,pred))
-print("confusion matrix",ZeroDivisionError(y_test,pred))
+ConfusionMatrixDisplay.from_predictions(y_test,pred)
 plt.show()
 result=permutation_importance(
     grid,
