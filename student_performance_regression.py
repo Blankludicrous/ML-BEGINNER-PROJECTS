@@ -21,5 +21,10 @@ pipeline=Pipeline([
 ])
 #fit and predict data
 pipeline.fit(X_train,y_train)
-pipeline.predict(X_test)
-print("model R2 score",pipeline.score(X_test,y_test))
+preds=pipeline.predict(X_test)
+Comparsion=pd.DataFrame({
+    "predicted_values":preds,
+    "actual_marks": y_test
+})
+print(Comparsion)
+print("test model R2 score",pipeline.score(X_test,y_test))
