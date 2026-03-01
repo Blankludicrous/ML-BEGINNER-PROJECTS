@@ -18,6 +18,23 @@ pipeline=Pipeline([
     ("model",KMeans(random_state=42))
 ]
 )
+#elbow method
+inertia_values=[]
+k_range=range(1,10)
+for k in k_range:
+    temp_pipeline=Pipeline([
+        ("imputation",SimpleImputer(strategy="mean")),
+        ("scaling",StandardScaler()),
+        ("model",KMeans(random_state=42,n_clusters=k))
+    ])
+    temp_pipeline.fit(X)
+    inertia_values.append(
+        temp_pipeline.named_steps["model"].inertia_
+    )
+plt.scatter(k_range,inertia_values)
+plt.xlabel("number of clusters k")
+plt.ylabel("inertia values")
+plt.show()
 #define silhouette score
 def silhouette_scorer(estimator,X):
     labels=estimator.fit_predict(X)

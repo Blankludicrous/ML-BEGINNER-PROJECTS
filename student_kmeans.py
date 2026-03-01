@@ -47,7 +47,7 @@ print("best_Score",grid.best_score_)
 X_transformed=best_pipeline[:-1].transform(X)
 #define pca
 pca=PCA(n_components=2)
-X_pca=pca.fit_transform(X)
+X_pca=pca.fit_transform(X_transformed)
 #numerical cluster interpretation
 centers=best_pipeline.named_steps["model"].cluster_centers_
 center_orginals=best_pipeline[:-1].inverse_transform(centers)
