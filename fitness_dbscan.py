@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import GridSearchCV
 from sklearn.cluster import DBSCAN
 from sklearn.impute import SimpleImputer
@@ -52,3 +53,16 @@ plt.xlabel("component 1")
 plt.ylabel("component 2")
 plt.title("dbscan")
 plt.show()
+#cluster mean
+df["clusters"]=clusters
+cluster_summary=df.groupby("clusters").mean()
+print(cluster_summary)
+#cluster sizes
+unique,counts=np.unique(clusters,return_counts=True)
+print(dict(zip(unique,counts)))
+#cluster core samples
+core_samples=best_pipeline.named_steps["model"].core_sample_indices_
+print("Number of core points",len(core_samples))
+#detect outliers
+outliers=df["clusters"]==-1
+print(outliers)
